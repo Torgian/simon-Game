@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="style.css" type="text/css">
+<head>
+
+</head>
+<body>
+	<div id="simonTable">
+		<svg id="svgStuff" width="500px" height="500px" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>GameTable@2x</title>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop">
+            <g id="GameTable">
+                <g id="base">
+                    <circle id="Oval-1" fill="#000000" cx="250" cy="250" r="250"></circle>
+                    <circle id="Oval-2" fill="#C4C4C4" cx="250" cy="250" r="120"></circle>
+                    <text id="off" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="24" font-weight="bold" fill="#000000">
+                        <tspan x="182" y="336">off</tspan>
+                    </text>
+                    <text id="on" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="24" font-weight="bold" fill="#000000">
+                        <tspan x="286" y="336">on</tspan>
+                    </text>
+                    <text id="easy" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="18" font-weight="bold" fill="#000000">
+                        <tspan x="265" y="272">easy</tspan>
+                    </text>
+                    <text id="hard" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="18" font-weight="bold" fill="#000000">
+                        <tspan x="266" y="242">hard</tspan>
+                    </text>
+                    <rect id="display" stroke="#8F8F8F" stroke-width="2" fill="#000000" x="160" y="220" width="60" height="60" rx="8"></rect>
+                    <rect id="onOffBase" stroke="#949494" stroke-width="2" fill="#000000" x="220" y="306" width="60" height="40" rx="8"></rect>
+                    <rect id="easyHardBase" stroke="#949494" stroke-width="2" fill="#000000" x="310" y="220" width="30" height="60" rx="8"></rect>
+                    <text id="Simon" font-family="HelveticaNeue, Helvetica Neue" font-size="36" font-weight="normal" fill="#000000">
+                        <tspan x="197" y="186">Simon</tspan>
+                    </text>
+                    <text id="Extreme!" transform="translate(274.301249, 185.864003) rotate(320.000000) translate(-274.301249, -185.864003) " font-family="HelveticaNeue-MediumItalic, Helvetica Neue" font-size="24" font-style="italic" font-weight="500" fill="#FA0C0C">
+                        <tspan x="224.301249" y="194.864003">Extreme!</tspan>
+                    </text>
+                </g>
+                <g id="powerSwitch" transform="translate(218.000000, 311.000000)">
+                    <circle id="Oval-3" fill="#6A686A" cx="15" cy="15" r="15"></circle>
+                    <circle id="Oval-3" fill="#F30724" cx="15" cy="15" r="13"></circle>
+                </g>
+                <g id="easyHardSwitch" transform="translate(310.000000, 251.000000)">
+                    <circle id="Oval-3" fill="#6A686A" cx="15" cy="15" r="15"></circle>
+                    <circle id="Oval-3" fill="#F8E81C" cx="15" cy="15" r="13"></circle>
+                </g>
+                <path d="M110.780418,244.948951 L9.9999998,244.948951 C12.62772,116.371496 116.371496,12.62772 244.948941,10.0000002 L244.948951,107.394697 C173.859231,116.89174 117.95931,173.812761 110.780418,244.948951 L110.780418,244.948951 Z" id="Blue" class="gameButton" onmousedown="playerTurn(this)" stroke="#1A559A" stroke-width="4" fill="#4990E2"></path>
+                <path d="M389.168533,244.948951 L489.948951,244.948951 C487.321231,116.371496 383.577455,12.62772 255.00001,10.0000002 L255,107.394697 C326.08972,116.89174 381.98964,173.812761 389.168533,244.948951 L389.168533,244.948951 Z" id="Red" class="gameButton" stroke="#990013" onmousedown="playerTurn(this)" stroke-width="4" fill="#D8021C"></path>
+                <path d="M110.780418,254.999992 L9.9999998,254.999992 C12.62772,383.577448 116.371496,487.321223 244.948941,489.948943 L244.948951,392.554246 C173.859231,383.057204 117.95931,326.136182 110.780418,254.999992 L110.780418,254.999992 Z" id="Yellow" class="gameButton" onmousedown="playerTurn(this)" stroke="#AB9F05" stroke-width="4" fill="#EBDA06"></path>
+                <path d="M389.168533,254.999992 L489.948951,254.999992 C487.321231,383.577448 383.577455,487.321223 255.00001,489.948943 L255,392.554246 C326.08972,383.057204 381.98964,326.136182 389.168533,254.999992 L389.168533,254.999992 Z" id="Green" class="gameButton" stroke="#284B00" onmousedown="playerTurn(this)" stroke-width="4" fill="#417505"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+
+	</div>
+	<script src="simon.js"></script>
+</body>
+
+</html>

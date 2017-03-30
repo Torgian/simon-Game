@@ -1,0 +1,22 @@
+#simonTable {
+	text-align: center;
+}
+
+.gameButton {
+	opacity:.5;
+}
+
+.gameButton:hover {
+	opacity: .7;
+}
+.gameButton:active {
+	opacity: 1;
+}
+
+.noDisplay {
+	display:none;
+}
+
+.activeClass {
+	opacity: 1;
+}

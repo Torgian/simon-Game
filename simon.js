@@ -33,8 +33,30 @@ var barType = {
 }
 
 var sequenceList = [2],
-	computerPlaying = false;
-	
+	computerPlaying = false,
+	onOffSwitch = document.getElementById("powerSwitch"),
+	easyHardSwitch = document.getElementById("easyHardSwitch");
+
+function turnOnOff(bar){
+	animate(bar);
+}
+
+function selectDifficulty(bar){
+	animate(bar);
+}
+
+function animate(element){
+	if (element.getAttribute("id") == "powerSwitch"){
+		element.classList.toggle("onOff");	
+	} else {
+		element.classList.toggle("easyHard");
+	}
+	//clickSound function call
+}
+
+function clickSound(){
+
+}
 
 function sequence(){
 	sequenceList.push(getRandomNumber(0,3));

@@ -1,5 +1,6 @@
 #simonTable {
 	text-align: center;
+	position: relative;
 }
 
 .gameButton {
@@ -19,4 +20,19 @@
 
 .activeClass {
 	opacity: 1;
+}
+
+#powerSwitch {
+	
+
+}
+.onOff {
+	transform:translate(253px, 311px);
+}
+
+.easyHard {
+	transform:translate(310px, 218px);
+}
+#easyHardSwitch {
+	position: absolute;
 }

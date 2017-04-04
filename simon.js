@@ -1,27 +1,27 @@
 window.onload = function(){
-	
+	preventAllowClicks();//on load, prevent player from clicking the bars
 }
-
+//need to think about renaming function lightupbar since all it does is play audio.
 var bars = {
     'Blue' : {
     	'identity'	: 0,
         'music' : "track1",
-        'sound' : "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"
+        'sound' : "simonSound2.mp3"
     },
     'Red' : {
     	'identity'	: 1,
         'music' : "track2",
-        'sound' : "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"
+        'sound' : "simonSound1.mp3"
     },
     'Yellow' : {
     	'identity'	: 2,
     	'music' : "track3",
-    	'sound' : "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+    	'sound' : "simonSound4.mp3"
     },
     'Green' : {
     	'identity'	: 3,
     	'music' : "track4",
-    	'sound' : "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"
+    	'sound' : "simonSound3.mp3"
     }
 };
 
@@ -35,21 +35,23 @@ var barType = {
 var sequenceList = [],
 	computerPlaying = false,
 	playerIndex = 0,
+	tryAgain = 0,
 	onOffSwitch = document.getElementById("powerSwitch"),
 	easyHardSwitch = document.getElementById("easyHardSwitch"),
 	display = document.getElementById("displayText");
 	difficulty = 1000,
-	sequenceTimer = 900;
+	sequenceTimer = 850;
 
 function turnOnOff(element){
 	animate(element);
-	if (element.classList.contains("onOff")){
+	if (element.classList.contains("on")){
 		sequenceList = [];
+		preventAllowClicks();//when turned on, first time will allow player to click the bars, but only momentarily.
 		display.innerHTML = 0;
 		addToSequence();
 	} else {
-		reset();
-		display.innerHTML = "";		
+		resetGame();
+		display.innerHTML = "";
 	}
 	clickSound();
 }
@@ -57,59 +59,37 @@ function turnOnOff(element){
 function selectDifficulty(element){
 	animate(element);
 	if (element.classList.contains("hard")){
-		difficulty = 500;
-		sequenceTimer = 400;
+		difficulty = 600;
+		sequenceTimer = 450;
 	} else {
 		difficulty = 1000;
-		sequenceTimer = 900;
-	}
-	setTimeout(addToSequence, 5000);
-}
-
-function addToSequence(){
-	sequenceList.push(getRandomNumber(0,3));
-	console.log(sequenceList);
-	computerPlay();
-}
-
-function playerTurn(barButton){
-	var barID = barButton.getAttribute("id");
-	lightUpBar(barID);
-	console.log(bars[barID].identity);
-	if (bars[barID].identity == sequenceList[playerIndex]){
-		checkLengthForWin();
-	} else {
-		console.log("Wrong!");
-		//add function to add a "no click" class to all the bars
-		//then call computerPlay()
-	}
-	//check function to check if player input the right button according to sequence List
-}
-
-function checkLengthForWin(){
-	if(playerIndex+1 === 20){
-		console.log("You Win!");
-	} else if((playerIndex+1) === sequenceList.length){
-		playerIndex = 0;
-		setTimeout(addToSequence, 1000);
-	} else {
-		playerIndex++;
-		console.log(playerIndex);
+		sequenceTimer = 850;
 	}
 }
-function lightUpBar(bar){
+
+function playBarAudio(bar){
 	var barAudio = new Audio(bars[bar].sound);
 	barAudio.play();
 }
 
+function addToSequence(){
+	sequenceList.push(getRandomNumber(0,3));
+	setTimeout(function(){
+		computerPlay();
+	},1000)
+	preventAllowClicks();//prevents player from clicking
+}
+
 function computerPlay(){
 	var index = 0;
-
+	computerPlaying = true;
 	var nextOnList = setInterval(function(){
 		if (index === sequenceList.length-1){
 			clearInterval(nextOnList);
+			computerPlaying = false;
+			preventAllowClicks();//after computer's turn ends, allows Player to play
 		} 
-		lightUpBar(barType[sequenceList[index]]);
+		playBarAudio(barType[sequenceList[index]]);
 		document.getElementById(barType[sequenceList[index]]).classList.toggle("activeClass");
 
 		if (index >= 9){
@@ -119,21 +99,80 @@ function computerPlay(){
 		}
 
 		setTimeout(function(){
-			if (onOffSwitch.classList.contains("onOff") != true){
+			if (onOffSwitch.classList.contains("on") != true){
 			clearInterval(nextOnList);
 		}
 			document.getElementById(barType[sequenceList[index]]).classList.remove("activeClass");
 			index = (index + 1) % sequenceList.length;
 		},sequenceTimer)
-		
 	},difficulty);
 }
 
-function reset(){
+function playerTurn(barButton){
+	var barID = barButton.getAttribute("id");
+	playBarAudio(barID);
+	if (bars[barID].identity == sequenceList[playerIndex]){
+		checkLengthForWin();
+	} else {
+		display.innerHTML = "X";
+		if (tryAgain === 0){
+			tryAgain = tryAgain + 1;
+			playerIndex = 0;
+			preventAllowClicks();
+			computerPlay();
+		} else {
+			lose();
+		}
+	}
+}
+
+function checkLengthForWin(){
+	if(playerIndex+1 === 20){
+		win();
+	} else if((playerIndex+1) === sequenceList.length){
+		playerIndex = 0;
+		setTimeout(function(){
+			addToSequence();
+		}, 400);
+	} else {
+		playerIndex++;
+	}
+}
+
+function win(){
+	var winAudio = new Audio("Win.mp3");
+	winAudio.play();
+	display.innerHTML = "W";
+	setTimeout(function(){
+		resetGame();
+	}, 4000);
+}
+
+function lose(){
+	var loseAudio = new Audio("Lose.mp3");
+	loseAudio.play();
+	display.innerHTML = ":(";
+	setTimeout(function(){
+		resetGame();
+	}, 4000);
+}
+
+function resetGame(){
 	for (j=0; j<4; j++){
 				document.getElementById(barType[j]).classList.remove("activeClass");
-				computerPlaying = false;
+				document.getElementById(barType[j]).classList.add("not-clickable");
 			}
+	computerPlaying = false;
+	tryAgain = 0;
+	playerIndex = 0;
+	display.innerHTML = 0;
+}
+
+function preventAllowClicks(){
+	var paths = document.getElementById("GameTable").getElementsByTagName("path");
+	for(i=0;i<paths.length;i++){
+		paths[i].classList.toggle("not-clickable");
+	};
 }
 
 function getRandomNumber(min, max) {
